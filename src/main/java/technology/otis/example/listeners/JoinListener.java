@@ -5,6 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import technology.otis.example.Example;
+import technology.otis.example.playerhearts.HeartManager;
 
 public class JoinListener implements Listener {
 
