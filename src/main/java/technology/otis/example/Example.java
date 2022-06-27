@@ -2,6 +2,7 @@ package technology.otis.example;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import technology.otis.example.commands.CreativeCommand;
 import technology.otis.example.commands.ReloadCommand;
 import technology.otis.example.db.MySQL;
 import technology.otis.example.db.SQLGetter;
@@ -21,7 +22,7 @@ public final class Example extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         getCommand("reloadexample").setExecutor(new ReloadCommand());
-
+        getCommand("creative").setExecutor(new CreativeCommand());
         this.sql = new MySQL();
         this.sqlGetter = new SQLGetter();
 

@@ -13,6 +13,8 @@ public class JoinListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event){
         if(!Example.getInstance().sql.isConnected()) return;
         Example.getInstance().sqlGetter.createPlayer(event.getPlayer());
+        HeartManager heartManager = new HeartManager();
+        heartManager.manipulateHeats(event.getPlayer(), 20);
     }
 
 }

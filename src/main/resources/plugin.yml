@@ -8,3 +8,5 @@ commands:
   reloadexample:
     description: reloads the config of the example plugin
     aliases: reloade
+  creative:
+    description: for ettypoops
