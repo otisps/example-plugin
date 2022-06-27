@@ -22,6 +22,8 @@ public final class Example extends JavaPlugin {
         getCommand("reloadexample").setExecutor(new ReloadCommand());
 
         this.sql = new MySQL();
+        this.sqlGetter = new SQLGetter();
+
         try {
             sql.connect();
         } catch (ClassNotFoundException | SQLException e ) {

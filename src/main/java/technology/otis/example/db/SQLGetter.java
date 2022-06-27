@@ -17,7 +17,7 @@ public class SQLGetter {
         try{
             statement = Example.getInstance().sql.getConnection()
                     .prepareStatement("CREATE TABLE  IF NOT EXISTS playerdata "
-                    + "(name VARCHAR(64), playerUUID VARCHAR(64), points INT(64) PRIMARY KEY (playerUUID))");
+                    + "(name VARCHAR(64), playerUUID VARCHAR(64), points INT(64), PRIMARY KEY (playerUUID))");
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(); // Shouldn't be possible, as if connection issues exists, we don't load...
