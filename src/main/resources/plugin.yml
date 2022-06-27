@@ -4,3 +4,7 @@ main: technology.otis.example.Example
 api-version: 1.19
 authors: [ otisps ]
 description: example plugin
+commands:
+  reloadexample:
+    description: reloads the config of the example plugin
+    aliases: reloade
