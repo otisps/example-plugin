@@ -23,6 +23,10 @@ public class MySQL {
         this.password = plugin.getConfig().getString("mysql.password");;
     }
 
+    /**
+     * Tests for a null connection
+     * @return true if there a connection
+     */
     public Boolean isConnected() {
         return (connection == null ? false : true);
 

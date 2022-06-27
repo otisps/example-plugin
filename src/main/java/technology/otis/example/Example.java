@@ -4,12 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import technology.otis.example.commands.ReloadCommand;
 import technology.otis.example.db.MySQL;
+import technology.otis.example.db.SQLGetter;
 
 import java.sql.SQLException;
 
 public final class Example extends JavaPlugin {
     private static Example instance;
     public MySQL sql;
+    public SQLGetter sqlGetter;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -28,7 +31,10 @@ public final class Example extends JavaPlugin {
 
         if(sql.isConnected()){
             getServer().getLogger().info("MySQL Database and Example Plugin are connected!");
+            sqlGetter.createTable();
         }
+
+        // TODO : JOIN LISTENER
         getServer().getLogger().info("Example Plugin Successfully Enabled");
     }
 
