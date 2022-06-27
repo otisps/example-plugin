@@ -25,6 +25,27 @@ public class SQLGetter {
     }
 
     /**
+     * Function to see if a target player contains in the playerdata table
+     * @param playerId target player's uuid
+     * @return true or false
+     */
+    public boolean tableContains(String playerId){
+        try {
+            PreparedStatement statement = Example.getInstance().sql.getConnection()
+                    .prepareStatement("SELECT * FROM playerdata WHERE playerUUID=?");
+            statement.setString(1, playerId);
+            ResultSet results = statement.executeQuery();
+            if(results.next()){
+                return true;
+            }
+            return false;
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * If the player isn't in the database, this procedure adds them to it
      * @param player target player
      */
@@ -47,33 +68,43 @@ public class SQLGetter {
         }
     }
 
+
     /**
-     * Function to see if a target player contains in the playerdata table
+     * Function which queries the MySQL database for a players points
      * @param playerId target player's uuid
-     * @return true or false
+     * @return The target player's points
      */
-    public boolean tableContains(String playerId){
+    public int getPoints(String playerId){
         try {
             PreparedStatement statement = Example.getInstance().sql.getConnection()
-                    .prepareStatement("SELECT * FROM playerdata WHERE playerUUID=?");
+                    .prepareStatement("SELECT points FROM playerdata WHERE playerUUID=?");
             statement.setString(1, playerId);
             ResultSet results = statement.executeQuery();
             if(results.next()){
-                return true;
+                return results.getInt(1);
             }
-            return false;
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
     }
+
 
     /**
      * Procedure to add a point to the total of the target player
      * @param playerId target player's uuid
      */
     public void addPoint(String playerId){
-        // TODO: THIS
+        try {
+            int points = getPoints(playerId);
+            points++;
+            PreparedStatement statement = Example.getInstance().sql.getConnection()
+                    .prepareStatement("UPDATE playerdata SET points=? WHERE playerUUID=?");
+            statement.setInt(1, points);
+            statement.executeUpdate();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -85,14 +116,5 @@ public class SQLGetter {
         // TODO: THIS
     }
 
-    /**
-     * Function which queries the MySQL database for a players points
-     * @param playerId target player's uuid
-     * @return The target player's points
-     */
-    public int getPoints(String playerId){
-        // TODO: THIS
-        return 0;
-    }
 
 }
