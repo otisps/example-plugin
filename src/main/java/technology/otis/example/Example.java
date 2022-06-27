@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import technology.otis.example.commands.ReloadCommand;
 import technology.otis.example.db.MySQL;
 import technology.otis.example.db.SQLGetter;
+import technology.otis.example.listeners.JoinListener;
 
 import java.sql.SQLException;
 
@@ -19,6 +20,7 @@ public final class Example extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         getCommand("reloadexample").setExecutor(new ReloadCommand());
+
         this.sql = new MySQL();
         try {
             sql.connect();
@@ -34,7 +36,8 @@ public final class Example extends JavaPlugin {
             sqlGetter.createTable();
         }
 
-        // TODO : JOIN LISTENER
+
+        getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getLogger().info("Example Plugin Successfully Enabled");
     }
 
