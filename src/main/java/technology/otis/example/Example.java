@@ -5,7 +5,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import technology.otis.example.commands.CreativeCommand;
 import technology.otis.example.commands.ReloadCommand;
 import technology.otis.example.db.MySQL;
+import technology.otis.example.db.SQL;
 import technology.otis.example.db.SQLGetter;
+import technology.otis.example.db.SQLite;
 import technology.otis.example.listeners.AchievementListener;
 import technology.otis.example.listeners.JoinListener;
 
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 
 public final class Example extends JavaPlugin {
     private static Example instance;
-    public MySQL sql;
+    public SQL sql;
     public SQLGetter sqlGetter;
 
     @Override
@@ -29,14 +31,19 @@ public final class Example extends JavaPlugin {
         try {
             sql.connect();
         } catch (ClassNotFoundException | SQLException e ) {
-            Bukkit.getLogger().info("Database is not connected, please update config.yml, check your connection and then try again.");
-            getServer().getPluginManager().disablePlugin(this);
-            getPluginLoader().disablePlugin(this);
-            return;
+            this.sql = new SQLite();
+            try {
+                sql.connect();
+            } catch (ClassNotFoundException | SQLException ex) {
+                Bukkit.getLogger().info("Database is not connected, please update config.yml, check your connection and then try again.");
+                getServer().getPluginManager().disablePlugin(this);
+                getPluginLoader().disablePlugin(this);
+                return;
+            }
         }
 
         if(sql.isConnected()){
-            getServer().getLogger().info("MySQL Database and Example Plugin are connected!");
+            getServer().getLogger().info("Database and Example Plugin are connected!");
             sqlGetter.createTable();
         }
 

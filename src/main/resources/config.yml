@@ -4,3 +4,5 @@ mysql: #Connection details for your MySQL Database
   database:
   username:
   password:
+sqlite:
+  database:
