@@ -95,16 +95,9 @@ public class SQLGetter {
      * @param playerId target player's uuid
      */
     public void addPoint(String playerId){
-        try {
-            int points = getPoints(playerId);
-            points++;
-            PreparedStatement statement = Example.getInstance().sql.getConnection()
-                    .prepareStatement("UPDATE playerdata SET points=? WHERE playerUUID=?");
-            statement.setInt(1, points);
-            statement.executeUpdate();
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
+        int points = getPoints(playerId);
+        points++;
+        setPoints(playerId, points);
     }
 
     /**
@@ -113,7 +106,15 @@ public class SQLGetter {
      * @param points the new integer value for target player's points
      */
     public void setPoints(String playerId, int points){
-        // TODO: THIS
+        try {
+            PreparedStatement statement = Example.getInstance().sql.getConnection()
+                    .prepareStatement("UPDATE playerdata SET points=? WHERE playerUUID=?");
+            statement.setInt(1, points);
+            statement.setString(2, playerId);
+            statement.executeUpdate();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
 

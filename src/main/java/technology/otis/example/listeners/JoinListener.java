@@ -14,8 +14,4 @@ public class JoinListener implements Listener {
         Example.getInstance().sqlGetter.createPlayer(event.getPlayer());
     }
 
-    @EventHandler
-    public void onAchievement(PlayerAdvancementDoneEvent event){
-        Example.getInstance().sqlGetter.addPoint(event.getPlayer().getUniqueId().toString());
-    }
 }
