@@ -1,0 +1,6 @@
+mysql: #Connection details for your MySQL Database
+  host:
+  port:
+  database:
+  username:
+  password:
