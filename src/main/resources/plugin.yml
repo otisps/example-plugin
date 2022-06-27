@@ -1,0 +1,6 @@
+name: Example
+version: '${project.version}'
+main: technology.otis.example.Example
+api-version: 1.19
+authors: [ otisps ]
+description: example plugin
