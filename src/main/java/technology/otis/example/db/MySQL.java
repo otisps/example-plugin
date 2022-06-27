@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySQL {
+public class MySQL extends SQL {
+
     private String host;
     private String port;
     private String database;
@@ -27,18 +28,20 @@ public class MySQL {
      * Tests for a null connection
      * @return true if there a connection
      */
+    @Override
     public Boolean isConnected() {
         return (connection == null ? false : true);
 
     }
 
+    @Override
     public void connect() throws ClassNotFoundException, SQLException {
         if(isConnected()) return;
         connection = DriverManager.getConnection(
                 "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false",
                 username, password);
     }
-
+    @Override
     public void disconnect() {
         try {
             connection.close();
@@ -46,7 +49,7 @@ public class MySQL {
             e.printStackTrace();
         }
     }
-
+    @Override
     public Connection getConnection() {
         return connection;
     }
